@@ -1,9 +1,9 @@
 # CS 457 Project Statement of Work (SOW) & Protocol Specification Template
 
-**Student Name:** [Your Full Name]  
-**Date:** [YYYY-MM-DD]  
+**Student Name:** Nicholas Schindler  
+**Date:** 2026-09-20 
 **Course:** CS 457 - Computer Networks  
-**Target Server Domain:** `server.[yourlastname].edu`  
+**Target Server Domain:** `server.schindler.edu`  
 
 ---
 
@@ -17,14 +17,14 @@
 > - You are encouraged to use python, but I'm not going to make it a strict requirement. The instructor and TA's ability to help with C or Rust, etc will be diminished in other languages.
 
 ### 1.1 Game Overview
-- **Chosen Game:** [e.g., Terminal Trivia, Tic-Tac-Toe, Connect Four, Battleship]
+- **Chosen Game:** Rock-Paper-Scissors-Lizard-Spock
 - **Player Capacity:** 2 Players (Simulated via 2 CML Client nodes)
-- **Game Summary:** [Briefly describe the gameplay mechanics and rules]
+- **Game Summary:** Each player simultaneously selects one item from the list [Rock, Paper, Scissors, Lizard, Spock]. The player who picks the item that beats the other player wins the round. (Rock beats Scissors and Lizard, Paper beats Rock and Spock, Scissors beats Paper and Lizard, Lizard beats Paper and Spock, Spock beats Rock and Scissors.)
 
 ### 1.2 Core Game Rules & Win/Draw Conditions
-- **Turn Mechanics:** [Explain how turn order is enforced between Player 1 and Player 2]
-- **Victory Condition:** [Define how a player wins the game]
-- **Draw/Tie Condition:** [Define how a draw/tie is detected and handled]
+- **Turn Mechanics:** Both players are prompted to pick an item from the list. They select an item, wait until both players have selected, and then their selections are revealed simultaneously.
+- **Victory Condition:** Win a total of 3 rounds.
+- **Draw/Tie Condition:** When both players select the same item, it is a draw. Neither player won the round so neither player progresses towards the victory condition. The draw is effectively thrown out.
 
 ---
 
