@@ -208,3 +208,64 @@ Note: `⏎` is a newline character on the wire stream.
 A draw outcome is not possible because the win condition is based purely on number of wins.
 
 ---
+
+## Message Validation & Dispatch
+
+Order of server checks on messages from clients. Error message is sent to offending client and game state does not change.
+
+| Order | Check | Failure response |
+|---|---|---|
+| 1 | Line decodes as UTF-8 | `ERROR` `MALFORMED` |
+| 2 | Line parses as a JSON object | `ERROR` `MALFORMED` |
+| 3 | `msg_type` is present and is a client-to-server type (`CONNECT`, `MOVE`, etc.) | `ERROR` `MALFORMED` |
+| 4 | All required fields for that type are present with the correct types | `ERROR` `MALFORMED` |
+| 5 | The message is allowed in the current game state | `ERROR` `NOT_IN_GAME` |
+| 6 | (`MOVE` only) The sender has not already moved this round | `ERROR` `DUPLICATE_MOVE` |
+| 7 | (`MOVE` only) `selection` is a valid `Selection` | `ERROR` `INVALID_MOVE` |
+
+---
+
+## Connection Termination & Socket Lifecycle
+
+A connection can end in three ways. The server maps all three to the same internal event, **`CLIENT_DISCONNECTED`**, which drives the state machine (see `fsm_specification.md`).
+
+### Application Layer Graceful 'DISCONNECT'
+
+1. The client sends `{"msg_type":"DISCONNECT","timestamp":...}⏎`.
+2. The client closes the socket.
+3. The server receives the `DISCONNECT`, raises `CLIENT_DISCONNECTED` for that player, and closes the appropriate socket socket.
+
+### Graceful TCP FIN without `DISCONNECT`
+
+If a client process exits normally during cleanup or closes its socket without sending `DISCONNECT` (i.e., ctrl + C), the operating system still sends a TCP FIN.
+
+When the peer has closed cleanly, `recv()` does not raise an exception; it returns 0 bytes (`b""`). This is the POSIX end-of-file indicator.
+
+Every receive loop checks for this.
+
+Any bytes still in the receive buffer without a terminating `\n` at EOF are an incomplete message and are discarded.
+
+### Abrupt: TCP RST, Crashes, Network Drops
+
+If a client leaves without sending a TCP FIN, the server will detect it:
+
+| Signal | When it occurs |
+|---|---|
+| `ConnectionResetError` | After the peer's host responds with TCP RST |
+| `BrokenPipeError` | Send to a socket whose remote end has already closed |
+| `ConnectionAbortedError` | Local OS aborts connection |
+| `TimeoutError` / `socket.timeout` | The idle timeout (60 seconds) expires |
+
+All socket traffic is wrapped with error handling so that disconnects do not crash the server.
+
+### Server Response by State
+
+| Server state when `CLIENT_DISCONNECTED` occurs | Server action |
+|---|---|
+| Lobby (one player connected) | Close player socket and return to waiting for players. No message is sent. |
+| Mid-game (game started, no winner yet) | Close the leaving player's socket. Send the remaining player `GAME_OVER` with `winner: "YOU"` and `reason: "FORFEIT"`, then close socket and run cleanup. |
+| After `GAME_OVER` has been sent | Ignore, as cleanup is imminent. |
+
+### Client Handling of Server Loss
+
+If the client's receive returns `b""`, or it catches `ConnectionResetError`, `BrokenPipeError` or `ConnectionAbortedError` on the server connection, the client prints a notice that the connection to the server was lost and exits. No automatic reconnect.
