@@ -14,7 +14,7 @@
 
 ### Wire Stream Examples
 
-Notation: `⏎` marks the newline byte `0x0A` on the wire.
+Note: `⏎` is a newline character on the wire stream.
 
 **Continuous stream: server to Client 1 during game start and the first round**
 
