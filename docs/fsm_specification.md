@@ -1,5 +1,8 @@
+# Game Server State Machine
+
+```mermaid
 flowchart TB
-    n1["n1"] --> n2["INIT"]
+    n1((" ")) --> n2["INIT"]
     n2 --> n3["Start server, server starts listening"]
     n3 --> n4["WAITING_FOR_PLAYERS"]
     n4 --> n5["P1 connects to server"]
@@ -25,31 +28,11 @@ flowchart TB
     n24 --> n11
     n25 --> n13
 
-    n1@{ shape: f-circ}
-    n8@{ shape: text}
-     n2:::Sky
-     n3:::Ash
-     n4:::Sky
-     n5:::Ash
-     n6:::Sky
-     n7:::Ash
-     n8:::Ash
-     n9:::Sky
-     n10:::Ash
-     n11:::Sky
-     n12:::Ash
-     n17:::Ash
-     n20:::Ash
-     n13:::Sky
-     n14:::Ash
-     n15:::Sky
-     n16:::Ash
-     n18:::Sky
-     n19:::Ash
-     n21:::Sky
-     n22:::Ash
-     n25:::Ash
-     n23:::Sky
-     n24:::Ash
+    class n1 Start
+    class n2,n4,n6,n9,n11,n13,n15,n18,n21,n23 Sky
+    class n3,n5,n7,n8,n10,n12,n14,n16,n17,n19,n20,n22,n24,n25 Ash
+
+    classDef Start fill:#000000, stroke:#000000
     classDef Sky stroke-width:1px, stroke-dasharray:none, stroke:#374D7C, fill:#E2EBFF, color:#374D7C
     classDef Ash stroke-width:1px, stroke-dasharray:none, stroke:#999999, fill:#EEEEEE, color:#000000
+```
