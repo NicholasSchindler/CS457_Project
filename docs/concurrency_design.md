@@ -2,6 +2,6 @@
 
 Option A: Multi-Threading will be used.
 
-'socket' and 'bind'
+`socket` and `bind`
 
 ---
