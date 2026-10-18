@@ -21,3 +21,19 @@ In the previous section a variable storing a turn's move was discussed. Prior to
 The server will use `mutex` on both clients' variables when updating game state between turns, and reset both to default so that the next round's input will be accepted.
 
 ---
+
+### Score & Leaderboard Design
+
+Round scores will be stored in an array on the server managed by the server loop. It will store:
+
+| Variable | Description |
+|---|---|
+| `P1_move` | P1 most recent move, copied from shared variable every turn |
+| `P2_move` | P1 most recent move, copied from shared variable every turn |
+| `round_winner` | Winner of round, calculated based on `P1_move` and `P2_move` |
+| `P1_num_wins` | Incremented when P1 wins a round |
+| `P2_num_wins` | Incremented when P2 wins a round |
+
+State updates are sent to both clients at same time, in between each round. Mechanism is to send to both via client threads, and then do not progress server loop until both clients TCP reply. If there is a timeout, then progress to `GAME_OVER`.
+
+---
