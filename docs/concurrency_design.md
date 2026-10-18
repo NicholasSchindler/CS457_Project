@@ -1,4 +1,4 @@
-## Server Concurrency Model Selection
+### Server Concurrency Model Selection
 
 Option A: Multi-Threading will be used.
 
@@ -14,7 +14,7 @@ As an additional design safeguard, the server is going to be doing the majority 
 
 ---
 
-## Turn Enforcement Logic
+### Turn Enforcement Logic
 
 In the previous section a variable storing a turn's move was discussed. Prior to updating the variable, the client thread will inspect the variable. If it is in the default state it will update with the turn's move. If it is in any other state, the client thread will not update the variable.
 
