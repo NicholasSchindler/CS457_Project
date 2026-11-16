@@ -1,0 +1,88 @@
+Resolved localhost -> 127.0.0.1
+Connected to 127.0.0.1:8080 over TCP.
+
+******************************************************
+  GAME START!  You are P2.  Opponent: Shelly
+  First to 3 round wins takes the match.
+******************************************************
+
+========================= ROUND 1 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 0    Losses: 0    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 1
+
+--- Round 1 result ---
+  You played:      ROCK
+  Opponent played: SPOCK  (Shelly)
+  SPOCK vaporizes ROCK.  You lose the round.
+  Score: Wins 0 | Losses 1 | Draws 0
+
+========================= ROUND 2 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 0    Losses: 1    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: paper
+
+--- Round 2 result ---
+  You played:      PAPER
+  Opponent played: PAPER  (Shelly)
+  Both picked PAPER.  Draw - the round is thrown out.
+  Score: Wins 0 | Losses 1 | Draws 1
+
+========================= ROUND 3 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 0    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 2
+
+--- Round 3 result ---
+  You played:      PAPER
+  Opponent played: ROCK  (Shelly)
+  PAPER covers ROCK.  ** You win the round! **
+  Score: Wins 1 | Losses 1 | Draws 1
+
+========================= ROUND 4 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 1    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: spock
+
+--- Round 4 result ---
+  You played:      SPOCK
+  Opponent played: LIZARD  (Shelly)
+  LIZARD poisons SPOCK.  You lose the round.
+  Score: Wins 1 | Losses 2 | Draws 1
+
+========================= ROUND 5 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 1    Losses: 2    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 4
+
+--- Round 5 result ---
+  You played:      LIZARD
+  Opponent played: SCISSORS  (Shelly)
+  SCISSORS decapitates LIZARD.  You lose the round.
+  Score: Wins 1 | Losses 3 | Draws 1
+
+######################################################
+                      GAME OVER
+  Shelly won the match. Better luck next time.
+  Final score: Wins 1 | Losses 3 | Draws 1
+######################################################

@@ -1,0 +1,289 @@
+CS 457 Sprint 3 - Intermediate Gameplay Execution Log
+Tested on localhost (127.0.0.1), Alpine Linux 3.24.4, gcc (Alpine 15.2.0) 15.2.0
+Server: ./server -p 8080
+Client 1: ./client -i localhost -p 8080 -n Shelly
+Client 2: ./client -i localhost -p 8080 -n Lenny
+
+################################################################
+# server console
+################################################################
+[02:01:48] NET    Listening on 0.0.0.0:8080 (TCP)
+[02:01:48] FSM    INIT -> WAITING_FOR_PLAYERS
+[02:01:49] NET    Accepted connection from 127.0.0.1:53180
+[02:01:49] RECV   127.0.0.1:53180 -> {"msg_type":"CONNECT","alias":"Shelly","timestamp":1794794509}
+[02:01:49] GAME   P1 'Shelly' joined from 127.0.0.1:53180
+[02:01:49] SEND   127.0.0.1:53180 <- {"msg_type":"LOBBY_WAIT","timestamp":1794794509}
+[02:01:49] FSM    WAITING_FOR_PLAYERS -> P1_CONNECTED
+[02:01:50] NET    Accepted connection from 127.0.0.1:51324
+[02:01:50] RECV   127.0.0.1:51324 -> {"msg_type":"CONNECT","alias":"Lenny","timestamp":1794794510}
+[02:01:50] GAME   P2 'Lenny' joined from 127.0.0.1:51324
+[02:01:50] FSM    P1_CONNECTED -> GAME_START
+[02:01:50] SEND   127.0.0.1:53180 <- {"msg_type":"GAME_START","player_role":"P1","opponent_alias":"Lenny","timestamp":1794794510}
+[02:01:50] SEND   127.0.0.1:51324 <- {"msg_type":"GAME_START","player_role":"P2","opponent_alias":"Shelly","timestamp":1794794510}
+[02:01:50] GAME   Match started: 'Shelly' (P1) vs 'Lenny' (P2)
+[02:01:50] GAME   Round 1
+[02:01:50] FSM    GAME_START -> WAITING_FOR_MOVES
+[02:01:52] RECV   127.0.0.1:53180 -> {"msg_type":"MOVE","selection":"SPOCK","timestamp":1794794512}
+[02:01:52] GAME   P1 'Shelly' locked in a move
+[02:01:52] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"WAITING_FOR_OPPONENT","your_selection":"SPOCK","opponent_selection":null,"round_winner":null,"score":{"wins":0,"losses":0,"draws":0},"timestamp":1794794512}
+[02:01:53] RECV   127.0.0.1:51324 -> {"msg_type":"MOVE","selection":"ROCK","timestamp":1794794513}
+[02:01:53] GAME   P2 'Lenny' locked in a move
+[02:01:53] FSM    WAITING_FOR_MOVES -> SCORING
+[02:01:53] GAME   Round 1: SPOCK (P1) vs ROCK (P2) -> Shelly
+[02:01:53] GAME   Score: P1 1 - P2 0 (draws 0)
+[02:01:53] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"SPOCK","opponent_selection":"ROCK","round_winner":"YOU","score":{"wins":1,"losses":0,"draws":0},"timestamp":1794794513}
+[02:01:53] SEND   127.0.0.1:51324 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"ROCK","opponent_selection":"SPOCK","round_winner":"OPPONENT","score":{"wins":0,"losses":1,"draws":0},"timestamp":1794794513}
+[02:01:53] FSM    SCORING -> NEW_ROUND
+[02:01:53] GAME   Round 2
+[02:01:53] FSM    NEW_ROUND -> WAITING_FOR_MOVES
+[02:01:54] RECV   127.0.0.1:53180 -> {"msg_type":"MOVE","selection":"PAPER","timestamp":1794794514}
+[02:01:54] GAME   P1 'Shelly' locked in a move
+[02:01:54] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"WAITING_FOR_OPPONENT","your_selection":"PAPER","opponent_selection":null,"round_winner":null,"score":{"wins":1,"losses":0,"draws":0},"timestamp":1794794514}
+[02:01:55] RECV   127.0.0.1:51324 -> {"msg_type":"MOVE","selection":"PAPER","timestamp":1794794515}
+[02:01:55] GAME   P2 'Lenny' locked in a move
+[02:01:55] FSM    WAITING_FOR_MOVES -> SCORING
+[02:01:55] GAME   Round 2: PAPER (P1) vs PAPER (P2) -> DRAW
+[02:01:55] GAME   Score: P1 1 - P2 0 (draws 1)
+[02:01:55] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"PAPER","opponent_selection":"PAPER","round_winner":"DRAW","score":{"wins":1,"losses":0,"draws":1},"timestamp":1794794515}
+[02:01:55] SEND   127.0.0.1:51324 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"PAPER","opponent_selection":"PAPER","round_winner":"DRAW","score":{"wins":0,"losses":1,"draws":1},"timestamp":1794794515}
+[02:01:55] FSM    SCORING -> NEW_ROUND
+[02:01:55] GAME   Round 3
+[02:01:55] FSM    NEW_ROUND -> WAITING_FOR_MOVES
+[02:01:56] RECV   127.0.0.1:53180 -> {"msg_type":"MOVE","selection":"ROCK","timestamp":1794794516}
+[02:01:56] GAME   P1 'Shelly' locked in a move
+[02:01:56] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"WAITING_FOR_OPPONENT","your_selection":"ROCK","opponent_selection":null,"round_winner":null,"score":{"wins":1,"losses":0,"draws":1},"timestamp":1794794516}
+[02:01:57] RECV   127.0.0.1:51324 -> {"msg_type":"MOVE","selection":"PAPER","timestamp":1794794517}
+[02:01:57] GAME   P2 'Lenny' locked in a move
+[02:01:57] FSM    WAITING_FOR_MOVES -> SCORING
+[02:01:57] GAME   Round 3: ROCK (P1) vs PAPER (P2) -> Lenny
+[02:01:57] GAME   Score: P1 1 - P2 1 (draws 1)
+[02:01:57] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"ROCK","opponent_selection":"PAPER","round_winner":"OPPONENT","score":{"wins":1,"losses":1,"draws":1},"timestamp":1794794517}
+[02:01:57] SEND   127.0.0.1:51324 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"PAPER","opponent_selection":"ROCK","round_winner":"YOU","score":{"wins":1,"losses":1,"draws":1},"timestamp":1794794517}
+[02:01:57] FSM    SCORING -> NEW_ROUND
+[02:01:57] GAME   Round 4
+[02:01:57] FSM    NEW_ROUND -> WAITING_FOR_MOVES
+[02:01:58] RECV   127.0.0.1:53180 -> {"msg_type":"MOVE","selection":"LIZARD","timestamp":1794794518}
+[02:01:58] GAME   P1 'Shelly' locked in a move
+[02:01:58] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"WAITING_FOR_OPPONENT","your_selection":"LIZARD","opponent_selection":null,"round_winner":null,"score":{"wins":1,"losses":1,"draws":1},"timestamp":1794794518}
+[02:01:59] RECV   127.0.0.1:51324 -> {"msg_type":"MOVE","selection":"SPOCK","timestamp":1794794519}
+[02:01:59] GAME   P2 'Lenny' locked in a move
+[02:01:59] FSM    WAITING_FOR_MOVES -> SCORING
+[02:01:59] GAME   Round 4: LIZARD (P1) vs SPOCK (P2) -> Shelly
+[02:01:59] GAME   Score: P1 2 - P2 1 (draws 1)
+[02:01:59] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"LIZARD","opponent_selection":"SPOCK","round_winner":"YOU","score":{"wins":2,"losses":1,"draws":1},"timestamp":1794794519}
+[02:01:59] SEND   127.0.0.1:51324 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"SPOCK","opponent_selection":"LIZARD","round_winner":"OPPONENT","score":{"wins":1,"losses":2,"draws":1},"timestamp":1794794519}
+[02:01:59] FSM    SCORING -> NEW_ROUND
+[02:01:59] GAME   Round 5
+[02:01:59] FSM    NEW_ROUND -> WAITING_FOR_MOVES
+[02:02:00] RECV   127.0.0.1:53180 -> {"msg_type":"MOVE","selection":"SCISSORS","timestamp":1794794520}
+[02:02:00] GAME   P1 'Shelly' locked in a move
+[02:02:00] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"WAITING_FOR_OPPONENT","your_selection":"SCISSORS","opponent_selection":null,"round_winner":null,"score":{"wins":2,"losses":1,"draws":1},"timestamp":1794794520}
+[02:02:01] RECV   127.0.0.1:51324 -> {"msg_type":"MOVE","selection":"LIZARD","timestamp":1794794521}
+[02:02:01] GAME   P2 'Lenny' locked in a move
+[02:02:01] FSM    WAITING_FOR_MOVES -> SCORING
+[02:02:01] GAME   Round 5: SCISSORS (P1) vs LIZARD (P2) -> Shelly
+[02:02:01] GAME   Score: P1 3 - P2 1 (draws 1)
+[02:02:01] SEND   127.0.0.1:53180 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"SCISSORS","opponent_selection":"LIZARD","round_winner":"YOU","score":{"wins":3,"losses":1,"draws":1},"timestamp":1794794521}
+[02:02:01] SEND   127.0.0.1:51324 <- {"msg_type":"STATE_UPDATE","status":"ROUND_RESULT","your_selection":"LIZARD","opponent_selection":"SCISSORS","round_winner":"OPPONENT","score":{"wins":1,"losses":3,"draws":1},"timestamp":1794794521}
+[02:02:01] FSM    SCORING -> GAME_OVER
+[02:02:01] SEND   127.0.0.1:53180 <- {"msg_type":"GAME_OVER","winner":"YOU","reason":"WIN","score":{"wins":3,"losses":1,"draws":1},"timestamp":1794794521}
+[02:02:01] SEND   127.0.0.1:51324 <- {"msg_type":"GAME_OVER","winner":"OPPONENT","reason":"WIN","score":{"wins":1,"losses":3,"draws":1},"timestamp":1794794521}
+[02:02:01] GAME   Match over: 'Shelly' wins (WIN)
+[02:02:01] FSM    GAME_OVER -> CLEANUP
+[02:02:01] NET    127.0.0.1:51324 closed the connection (EOF)
+[02:02:01] FSM    CLEANUP -> WAITING_FOR_PLAYERS
+[02:02:01] NET    127.0.0.1:53180 closed the connection (EOF)
+[02:02:01] NET    127.0.0.1:53180 socket closed
+[02:02:01] NET    127.0.0.1:51324 socket closed
+
+################################################################
+# client_shelly console
+################################################################
+Resolved localhost -> 127.0.0.1
+Connected to 127.0.0.1:8080 over TCP.
+Joined the lobby as 'Shelly'. Waiting for Player 2...
+
+******************************************************
+  GAME START!  You are P1.  Opponent: Lenny
+  First to 3 round wins takes the match.
+******************************************************
+
+========================= ROUND 1 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 0    Losses: 0    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 5
+You locked in SPOCK. Waiting for Lenny...
+
+--- Round 1 result ---
+  You played:      SPOCK
+  Opponent played: ROCK  (Lenny)
+  SPOCK vaporizes ROCK.  ** You win the round! **
+  Score: Wins 1 | Losses 0 | Draws 0
+
+========================= ROUND 2 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 1    Losses: 0    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: banana
+'banana' is not a valid choice. Enter 1-5 or a name.
+Your choice: 2
+You locked in PAPER. Waiting for Lenny...
+
+--- Round 2 result ---
+  You played:      PAPER
+  Opponent played: PAPER  (Lenny)
+  Both picked PAPER.  Draw - the round is thrown out.
+  Score: Wins 1 | Losses 0 | Draws 1
+
+========================= ROUND 3 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 1    Losses: 0    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: rock
+You locked in ROCK. Waiting for Lenny...
+
+--- Round 3 result ---
+  You played:      ROCK
+  Opponent played: PAPER  (Lenny)
+  PAPER covers ROCK.  You lose the round.
+  Score: Wins 1 | Losses 1 | Draws 1
+
+========================= ROUND 4 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 1    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: L
+You locked in LIZARD. Waiting for Lenny...
+
+--- Round 4 result ---
+  You played:      LIZARD
+  Opponent played: SPOCK  (Lenny)
+  LIZARD poisons SPOCK.  ** You win the round! **
+  Score: Wins 2 | Losses 1 | Draws 1
+
+========================= ROUND 5 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 2    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: scissors
+You locked in SCISSORS. Waiting for Lenny...
+
+--- Round 5 result ---
+  You played:      SCISSORS
+  Opponent played: LIZARD  (Lenny)
+  SCISSORS decapitates LIZARD.  ** You win the round! **
+  Score: Wins 3 | Losses 1 | Draws 1
+
+######################################################
+                      GAME OVER
+  Congratulations, Shelly - you won the match!
+  Final score: Wins 3 | Losses 1 | Draws 1
+######################################################
+
+################################################################
+# client_lenny console
+################################################################
+Resolved localhost -> 127.0.0.1
+Connected to 127.0.0.1:8080 over TCP.
+
+******************************************************
+  GAME START!  You are P2.  Opponent: Shelly
+  First to 3 round wins takes the match.
+******************************************************
+
+========================= ROUND 1 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 0    Losses: 0    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 1
+
+--- Round 1 result ---
+  You played:      ROCK
+  Opponent played: SPOCK  (Shelly)
+  SPOCK vaporizes ROCK.  You lose the round.
+  Score: Wins 0 | Losses 1 | Draws 0
+
+========================= ROUND 2 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 0    Losses: 1    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: paper
+
+--- Round 2 result ---
+  You played:      PAPER
+  Opponent played: PAPER  (Shelly)
+  Both picked PAPER.  Draw - the round is thrown out.
+  Score: Wins 0 | Losses 1 | Draws 1
+
+========================= ROUND 3 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 0    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 2
+
+--- Round 3 result ---
+  You played:      PAPER
+  Opponent played: ROCK  (Shelly)
+  PAPER covers ROCK.  ** You win the round! **
+  Score: Wins 1 | Losses 1 | Draws 1
+
+========================= ROUND 4 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 1    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: spock
+
+--- Round 4 result ---
+  You played:      SPOCK
+  Opponent played: LIZARD  (Shelly)
+  LIZARD poisons SPOCK.  You lose the round.
+  Score: Wins 1 | Losses 2 | Draws 1
+
+========================= ROUND 5 =========================
++------------------------------------------------------+
+| Lenny (P2)               vs Shelly                   |
+| Wins: 1    Losses: 2    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 4
+
+--- Round 5 result ---
+  You played:      LIZARD
+  Opponent played: SCISSORS  (Shelly)
+  SCISSORS decapitates LIZARD.  You lose the round.
+  Score: Wins 1 | Losses 3 | Draws 1
+
+######################################################
+                      GAME OVER
+  Shelly won the match. Better luck next time.
+  Final score: Wins 1 | Losses 3 | Draws 1
+######################################################

@@ -1,0 +1,96 @@
+Resolved localhost -> 127.0.0.1
+Connected to 127.0.0.1:8080 over TCP.
+Joined the lobby as 'Shelly'. Waiting for Player 2...
+
+******************************************************
+  GAME START!  You are P1.  Opponent: Lenny
+  First to 3 round wins takes the match.
+******************************************************
+
+========================= ROUND 1 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 0    Losses: 0    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: 5
+You locked in SPOCK. Waiting for Lenny...
+
+--- Round 1 result ---
+  You played:      SPOCK
+  Opponent played: ROCK  (Lenny)
+  SPOCK vaporizes ROCK.  ** You win the round! **
+  Score: Wins 1 | Losses 0 | Draws 0
+
+========================= ROUND 2 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 1    Losses: 0    Draws: 0     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: banana
+'banana' is not a valid choice. Enter 1-5 or a name.
+Your choice: 2
+You locked in PAPER. Waiting for Lenny...
+
+--- Round 2 result ---
+  You played:      PAPER
+  Opponent played: PAPER  (Lenny)
+  Both picked PAPER.  Draw - the round is thrown out.
+  Score: Wins 1 | Losses 0 | Draws 1
+
+========================= ROUND 3 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 1    Losses: 0    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: rock
+You locked in ROCK. Waiting for Lenny...
+
+--- Round 3 result ---
+  You played:      ROCK
+  Opponent played: PAPER  (Lenny)
+  PAPER covers ROCK.  You lose the round.
+  Score: Wins 1 | Losses 1 | Draws 1
+
+========================= ROUND 4 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 1    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: L
+You locked in LIZARD. Waiting for Lenny...
+
+--- Round 4 result ---
+  You played:      LIZARD
+  Opponent played: SPOCK  (Lenny)
+  LIZARD poisons SPOCK.  ** You win the round! **
+  Score: Wins 2 | Losses 1 | Draws 1
+
+========================= ROUND 5 =========================
++------------------------------------------------------+
+| Shelly (P1)              vs Lenny                    |
+| Wins: 2    Losses: 1    Draws: 1     First to 3      |
++------------------------------------------------------+
+>>> YOUR TURN <<<
+  1) ROCK   2) PAPER   3) SCISSORS   4) LIZARD   5) SPOCK   q) quit
+Your choice: scissors
+You locked in SCISSORS. Waiting for Lenny...
+
+--- Round 5 result ---
+  You played:      SCISSORS
+  Opponent played: LIZARD  (Lenny)
+  SCISSORS decapitates LIZARD.  ** You win the round! **
+  Score: Wins 3 | Losses 1 | Draws 1
+
+######################################################
+                      GAME OVER
+  Congratulations, Shelly - you won the match!
+  Final score: Wins 3 | Losses 1 | Draws 1
+######################################################
